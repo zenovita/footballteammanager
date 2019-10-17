@@ -1,0 +1,31 @@
+﻿@model Staj.Models.TeamViewModel
+
+    <div>
+        <h2>Are you sure?</h2>
+    </div>
+
+
+
+<script>
+        var id = @ViewBag.teamId;
+    $(function () {
+        debugger
+        $("#hede12").click(function () {
+
+            var hede9 = id;
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Team/DeleteTeam?teamId=" + hede9,
+                data: {
+                    "teamId": hede9
+                },
+                success: function (response) {
+                    $("#myModal2").modal("hide");
+                    window.location.href = "/Team/ShowTeams";
+                }
+            })
+        })
+    })
+</script>

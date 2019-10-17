@@ -1,0 +1,49 @@
+﻿@model Staj.Models.UserViewModel
+@{
+    ViewBag.Title = "Logout";
+}
+
+
+<div class="container">
+    <div class="row aligncenter">
+        <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4" style="align-items:center">
+            <form id="myForm">
+                <div class="form-group">
+                    <h4 style="text-align:center">Press the button to log out.</h4>
+
+      
+                </div>
+                <div class="form-group">
+                    <a href="#" class="form-control btn-primary btn-block btn-matchwidth aligncenter" onclick="LoginUser()">Logout</a>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    var LoginUser = function () {
+        var data = $("#myForm").serialize();
+
+        $.ajax({
+            type: "Post",
+            url: "/User/LogoutUser",
+            data: data,
+            success: function (response) {
+                if (response == "fail") {
+
+                    window.location.href = "/Home/Index";
+                }
+                else {
+
+                    window.location.href = "/Home/Index";
+                }
+            }
+        })
+    }
+
+</script>

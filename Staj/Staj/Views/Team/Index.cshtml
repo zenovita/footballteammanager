@@ -1,0 +1,64 @@
+﻿@model Staj.Models.TeamViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (Session["UserType"] != null && (Session["UserType"].Equals("Admin") || Session["UserType"].Equals("Standard")))
+{
+    <legend class="aligncenter">Add Team</legend>
+    <div class="col-md-12 col-lg-12 col-sm-12 aligncenter">
+        <div class="container col-lg-12 col-md-12 col-sm-12 aligncenter">
+            <fieldset>
+                <div class="form-group">
+                    <!-- Player Name -->
+                    <br />
+                    <label class="control-label" for="tname">Team Name</label><div class="controls">
+                        @Html.TextBoxFor(m => m.teamName, new { @class = "form-control aligncenter", @placeholder = "Team Name" })
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="controls">
+                    <button class="btn btn-success" id="hede">Done!</button>
+                </div>
+
+            </fieldset>
+
+        </div>
+    </div>
+}
+else
+{
+    <br />
+    <br />
+    <legend class="aligncenter">You have to be logged in to access this page!</legend>
+    using (Html.BeginForm("Login", "User", FormMethod.Post))
+    {
+        <form class="container" action='' method="POST">
+            <div class="col-lg-12 aligncenter">
+                <button class="btn btn-primary btn-lg" style="">Login</button>
+            </div>
+        </form>
+    }
+}
+
+
+<script>
+    $(function () {
+        $("#hede").click(function () {
+            //var data = $("#myForm").serialize();
+            var hede3 = $("#teamName").val();
+            $.ajax({
+                type: "POST",
+                url: "/Team/AddEditTeam",
+                data: { "teamName": hede3 },
+                success: function (response) {
+                    alert("Team Added!");
+                }
+            })
+        })
+    })
+
+
+</script>
+

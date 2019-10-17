@@ -1,0 +1,12 @@
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Repository\bin\Debug\Staj.Repository.dll.config
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Repository\bin\Debug\Staj.Repository.dll
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Repository\bin\Debug\Staj.Repository.pdb
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Repository\bin\Debug\EntityFramework.dll
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Repository\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Repository\bin\Debug\EntityFramework.xml
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Repository\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Repository\obj\Debug\Staj.Repository.csprojAssemblyReference.cache
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Repository\obj\Debug\Staj.Repository.csproj.CoreCompileInputs.cache
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Repository\obj\Debug\Staj.Repository.csproj.CopyComplete
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Repository\obj\Debug\Staj.Repository.dll
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Repository\obj\Debug\Staj.Repository.pdb

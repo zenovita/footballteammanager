@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CBKFTModelStoreContainer" CdmEntityContainer="CBKFTEntities">
+    <EntitySetMapping Name="Fixture">
+      <EntityTypeMapping TypeName="CBKFTModel.Fixture">
+        <MappingFragment StoreEntitySet="Fixture">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="teamId" ColumnName="teamId" />
+          <ScalarProperty Name="groups" ColumnName="groups" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Players">
+      <EntityTypeMapping TypeName="CBKFTModel.Players">
+        <MappingFragment StoreEntitySet="Players">
+          <ScalarProperty Name="playerId" ColumnName="playerId" />
+          <ScalarProperty Name="teamId" ColumnName="teamId" />
+          <ScalarProperty Name="playerName" ColumnName="playerName" />
+          <ScalarProperty Name="position" ColumnName="position" />
+          <ScalarProperty Name="skill" ColumnName="skill" />
+          <ScalarProperty Name="isPlaying" ColumnName="isPlaying" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlayerSkills">
+      <EntityTypeMapping TypeName="CBKFTModel.PlayerSkills">
+        <MappingFragment StoreEntitySet="PlayerSkills">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="atk" ColumnName="atk" />
+          <ScalarProperty Name="def" ColumnName="def" />
+          <ScalarProperty Name="pass" ColumnName="pass" />
+          <ScalarProperty Name="spd" ColumnName="spd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teams">
+      <EntityTypeMapping TypeName="CBKFTModel.Teams">
+        <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="teamId" ColumnName="teamId" />
+          <ScalarProperty Name="teamName" ColumnName="teamName" />
+          <ScalarProperty Name="gamePlayed" ColumnName="gamePlayed" />
+          <ScalarProperty Name="win" ColumnName="win" />
+          <ScalarProperty Name="lose" ColumnName="lose" />
+          <ScalarProperty Name="draw" ColumnName="draw" />
+          <ScalarProperty Name="goalAgainst" ColumnName="goalAgainst" />
+          <ScalarProperty Name="goalDifference" ColumnName="goalDifference" />
+          <ScalarProperty Name="point" ColumnName="point" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="CBKFTModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="userType" ColumnName="userType" />
+          <ScalarProperty Name="myTeam" ColumnName="myTeam" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserTypes">
+      <EntityTypeMapping TypeName="CBKFTModel.UserTypes">
+        <MappingFragment StoreEntitySet="UserTypes">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="userType" ColumnName="userType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Images">
+      <EntityTypeMapping TypeName="CBKFTModel.Images">
+        <MappingFragment StoreEntitySet="Images">
+          <ScalarProperty Name="imgPath" ColumnName="imgPath" />
+          <ScalarProperty Name="imgByte" ColumnName="imgByte" />
+          <ScalarProperty Name="imgName" ColumnName="imgName" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsedImages">
+      <EntityTypeMapping TypeName="CBKFTModel.UsedImages">
+        <MappingFragment StoreEntitySet="UsedImages">
+          <ScalarProperty Name="imgOrder" ColumnName="imgOrder" />
+          <ScalarProperty Name="imgId" ColumnName="imgId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

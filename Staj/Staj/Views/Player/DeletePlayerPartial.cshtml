@@ -1,0 +1,29 @@
+﻿@model Staj.Models.PlayerSkillRelationViewModel
+
+<div>
+    <h2>Are you sure?</h2>
+</div>
+
+<script>
+        var id = @ViewBag.playerId;
+    $(function () {
+        debugger
+        $("#hede12").click(function () {
+            
+            var hede9 = id;
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Player/DeletePlayer?pId=" + hede9,
+                data: {
+                    "PlayerVM.playerId": hede9
+                },
+                success: function (response) {
+                    $("#myModal2").modal("hide");
+                    window.location.href = "/Player/ShowPlayers";
+                }
+            })
+        })
+    })
+</script>

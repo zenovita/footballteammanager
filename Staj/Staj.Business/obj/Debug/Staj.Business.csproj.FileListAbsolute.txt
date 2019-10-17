@@ -1,0 +1,14 @@
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\bin\Debug\Staj.Business.dll
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\bin\Debug\Staj.Business.pdb
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\bin\Debug\EntityFramework.dll
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\bin\Debug\Staj.Domain.dll
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\bin\Debug\Staj.Repository.dll
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\bin\Debug\Staj.Domain.pdb
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\bin\Debug\Staj.Repository.pdb
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\bin\Debug\Staj.Repository.dll.config
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\bin\Debug\EntityFramework.xml
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\obj\Debug\Staj.Business.csprojAssemblyReference.cache
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\obj\Debug\Staj.Business.csproj.CoreCompileInputs.cache
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\obj\Debug\Staj.Business.csproj.CopyComplete
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\obj\Debug\Staj.Business.dll
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Business\obj\Debug\Staj.Business.pdb

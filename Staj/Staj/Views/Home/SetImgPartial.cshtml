@@ -1,0 +1,28 @@
+﻿@model Staj.Models.PlayerSkillRelationViewModel
+
+<div>
+    <h2>Are you sure?</h2>
+</div>
+
+<script>
+    var id = @ViewBag.id;
+    var img = @ViewBag.img;
+    $(function () {
+        debugger
+        $("#hede" + img).click(function () {
+
+            var hede9 = id;
+            var hede10 = img;
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/SetImg?img=" + img + "&id=" + id,
+                success: function (response) {
+                    $("#myModal" + img).modal("hide");
+                    window.location.href = "/Home/Image";
+                }
+            })
+        })
+    })
+</script>

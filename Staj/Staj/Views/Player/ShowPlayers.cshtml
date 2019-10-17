@@ -1,0 +1,175 @@
+﻿@model Staj.Models.PlayerSkillRelationViewModel
+@{
+    ViewBag.Title = "Index";
+    if (Session["UserType"] != null)
+    {
+        ViewBag.UserType = Session["UserType"].ToString();
+    }
+    else
+    {
+        ViewBag.UserType = "Standard";
+    }
+
+}
+
+@if (Session["UserType"] != null && (Session["UserType"].Equals("Admin") || Session["UserType"].Equals("Standard")))
+{
+    <br />
+    <div class="container body-content">
+        <table id="playerTable" class="display">
+            <thead>
+                <tr>
+                    <th>Player ID</th>
+                    <th>Player Name</th>
+                    <th>Team Name</th>
+                    <th>Position</th>
+                    <th>Attack</th>
+                    <th>Defense</th>
+                    <th>Pass</th>
+                    <th>Speed</th>
+                    @if (Session["UserType"].Equals("Admin"))
+                    {
+                        <th>Edit Player</th>
+                    }
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Edit Player</h3>
+                </div>
+                <div class="modal-body" id="myModalBodyDiv">
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    <input type="reset" value="Submit" class="btn btn-success" id="hede" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Delete Player</h3>
+                </div>
+                <div class="modal-body" id="myModalBodyDiv2">
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    <input type="reset" value="Delete" class="btn btn-danger" id="hede12" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <br />
+    <br />
+    <legend class="aligncenter">You have to be logged in to access this page!</legend>
+    using (Html.BeginForm("Login", "User", FormMethod.Post))
+    {
+        <form class="container" action='' method="POST">
+            <div class="col-lg-12 aligncenter">
+                <button class="btn btn-primary btn-lg" style="">Login</button>
+            </div>
+        </form>
+    }
+}
+
+
+<script>
+
+
+    $(document).ready(function () {
+        GetPlayers();
+    })
+    var GetPlayers = function () {
+        $.ajax({
+            type: "Get",
+            url: "/Player/ShowPlayer",
+            success: function (response) {
+                BindDataTable(response);
+            }
+        })
+    }
+    var BindDataTable = function (response) {
+        debugger
+        var userType = '@ViewBag.UserType';
+        if ((userType) == "Admin") {
+            $("#playerTable").DataTable({
+                "aaData": response,
+                "aoColumns": [
+                    {
+                        "mData": "PlayerVM.playerId",
+                        "render": function (playerId) {
+                            return '<i class="glyphicon glyphicon-user"></i> ' + playerId
+                        }
+                    },
+                    { "mData": "PlayerVM.playerName" },
+                    { "mData": "teamName" },
+                    { "mData": "PlayerVM.position" },
+                    { "mData": "SkillVM.atk" },
+                    { "mData": "SkillVM.def" },
+                    { "mData": "SkillVM.pass" },
+                    { "mData": "SkillVM.spd" },
+                    {
+                        "mData": "PlayerVM.playerId",
+                        "render": function (playerId) {
+                            return '<a href="#" onclick="AddEditPlayer(' + playerId + ')" > <i class="glyphicon glyphicon-pencil"></i></a ><a href="#" onclick="DeletePlayer(' + playerId + ')" > <i class="glyphicon glyphicon-trash"></i></a >'
+
+                        }
+                    },
+                ]
+            });
+        }
+        else
+        {
+            $("#playerTable").DataTable({
+
+                "aaData": response,
+                "aoColumns": [
+                    { "mData": "PlayerVM.playerId" },
+                    { "mData": "PlayerVM.playerName" },
+                    { "mData": "teamName" },
+                    { "mData": "PlayerVM.position" },
+                    { "mData": "SkillVM.atk" },
+                    { "mData": "SkillVM.def" },
+                    { "mData": "SkillVM.pass" },
+                    { "mData": "SkillVM.spd" },
+
+                ]
+            });
+        }
+    }
+
+     var AddEditPlayer = function (playerId) {
+         var url = "/Player/GetPlayer?playerId=" + playerId;
+            $("#myModalBodyDiv").load(url, function () {
+                $("#myModal").modal("show");
+            })
+     }
+
+    var DeletePlayer = function (playerId) {
+        var url = "/Player/DeletePlayerPrompt?pId=" + playerId;
+        $("#myModalBodyDiv2").load(url, function () {
+            $("#myModal2").modal("show");
+        })
+    }
+
+
+</script>
+

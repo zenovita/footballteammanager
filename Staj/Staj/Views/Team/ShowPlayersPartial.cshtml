@@ -1,0 +1,68 @@
+﻿@model Staj.Models.PlayerSkillRelationViewModel
+<div>
+    <table id="players" class="display nowrap">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        var teamIdtemp = @ViewBag.teamId;
+        GetPlayer(teamIdtemp);
+    })
+    var GetPlayer = function (teamId) {
+        debugger
+        $.ajax({
+            type: "Get",
+            url: "/Team/getPlayers?teamId=" + teamId,
+            success: function (response) {
+                BindDataTable(response);
+            }
+        })
+    }
+    var BindDataTable = function (response) {
+        debugger
+        {
+            $('#players').DataTable().destroy();
+
+            $("#players").DataTable({
+                "autoWidth": false,
+                "aaData": response,
+                "aoColumns": [
+                    {
+                        "mData": "PlayerVM.playerName",
+                        "render": function (playerName) {
+                            return '<i class="glyphicon glyphicon-user"></i>' + playerName
+                        }
+                    },
+                    { "mData": "PlayerVM.position" },
+                ],
+            });
+        }
+        //else
+        //{
+        //    $("#playerTable").DataTable({
+
+        //        "aaData": response,
+        //        "aoColumns": [
+        //            { "mData": "PlayerVM.playerId" },
+        //            { "mData": "PlayerVM.playerName" },
+        //            { "mData": "teamName" },
+        //            { "mData": "PlayerVM.position" },
+        //            { "mData": "SkillVM.atk" },
+        //            { "mData": "SkillVM.def" },
+        //            { "mData": "SkillVM.pass" },
+        //            { "mData": "SkillVM.spd" },
+
+        //        ]
+        //    });
+        //}
+    }
+</script>

@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="col-md-3">
+    <h2>@ViewBag.PlayerName</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>PlayerName</th>
+                <th>PlayerId</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.PlayerList != null)
+            {
+                foreach(var item in ViewBag.PlayerList)
+                {
+                    <tr>
+                        <td>@item.playerName</td>
+                        <td>@item.playerId</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    
+</div>

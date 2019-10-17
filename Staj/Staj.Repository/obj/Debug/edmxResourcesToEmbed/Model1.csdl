@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CBKFTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Fixture">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="teamId" Type="Int32" Nullable="false" />
+    <Property Name="groups" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Teams" Relationship="Self.FK_Fixture_Teams" FromRole="Fixture" ToRole="Teams" />
+  </EntityType>
+  <EntityType Name="Players">
+    <Key>
+      <PropertyRef Name="playerId" />
+    </Key>
+    <Property Name="playerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="teamId" Type="Int32" Nullable="false" />
+    <Property Name="playerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="skill" Type="Int32" Nullable="false" />
+    <Property Name="isPlaying" Type="Boolean" />
+    <NavigationProperty Name="PlayerSkills" Relationship="Self.FK_Players_PlayerSkills" FromRole="Players" ToRole="PlayerSkills" />
+    <NavigationProperty Name="Teams" Relationship="Self.FK_Players_Teams" FromRole="Players" ToRole="Teams" />
+  </EntityType>
+  <EntityType Name="PlayerSkills">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="atk" Type="Int32" Nullable="false" />
+    <Property Name="def" Type="Int32" Nullable="false" />
+    <Property Name="pass" Type="Int32" Nullable="false" />
+    <Property Name="spd" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Players" Relationship="Self.FK_Players_PlayerSkills" FromRole="PlayerSkills" ToRole="Players" />
+  </EntityType>
+  <EntityType Name="Teams">
+    <Key>
+      <PropertyRef Name="teamId" />
+    </Key>
+    <Property Name="teamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="teamName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gamePlayed" Type="Int32" />
+    <Property Name="win" Type="Int32" />
+    <Property Name="lose" Type="Int32" />
+    <Property Name="draw" Type="Int32" />
+    <Property Name="goalAgainst" Type="Int32" />
+    <Property Name="goalDifference" Type="Int32" />
+    <Property Name="point" Type="Int32" />
+    <NavigationProperty Name="Fixture" Relationship="Self.FK_Fixture_Teams" FromRole="Teams" ToRole="Fixture" />
+    <NavigationProperty Name="Players" Relationship="Self.FK_Players_Teams" FromRole="Teams" ToRole="Players" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="userType" Type="Int32" Nullable="false" />
+    <Property Name="myTeam" Type="Int32" />
+    <NavigationProperty Name="UserTypes" Relationship="Self.FK_Users_UserTypes" FromRole="Users" ToRole="UserTypes" />
+  </EntityType>
+  <EntityType Name="UserTypes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Users_UserTypes" FromRole="UserTypes" ToRole="Users" />
+  </EntityType>
+  <Association Name="FK_Fixture_Teams">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+    <End Role="Fixture" Type="Self.Fixture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="teamId" />
+      </Principal>
+      <Dependent Role="Fixture">
+        <PropertyRef Name="teamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Players_PlayerSkills">
+    <End Role="PlayerSkills" Type="Self.PlayerSkills" Multiplicity="1" />
+    <End Role="Players" Type="Self.Players" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlayerSkills">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Players">
+        <PropertyRef Name="skill" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Players_Teams">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+    <End Role="Players" Type="Self.Players" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="teamId" />
+      </Principal>
+      <Dependent Role="Players">
+        <PropertyRef Name="teamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_UserTypes">
+    <End Role="UserTypes" Type="Self.UserTypes" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserTypes">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="userType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CBKFTEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Fixture" EntityType="Self.Fixture" />
+    <EntitySet Name="Players" EntityType="Self.Players" />
+    <EntitySet Name="PlayerSkills" EntityType="Self.PlayerSkills" />
+    <EntitySet Name="Teams" EntityType="Self.Teams" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <EntitySet Name="UserTypes" EntityType="Self.UserTypes" />
+    <AssociationSet Name="FK_Fixture_Teams" Association="Self.FK_Fixture_Teams">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Fixture" EntitySet="Fixture" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Players_PlayerSkills" Association="Self.FK_Players_PlayerSkills">
+      <End Role="PlayerSkills" EntitySet="PlayerSkills" />
+      <End Role="Players" EntitySet="Players" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Players_Teams" Association="Self.FK_Players_Teams">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Players" EntitySet="Players" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_UserTypes" Association="Self.FK_Users_UserTypes">
+      <End Role="UserTypes" EntitySet="UserTypes" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <EntitySet Name="Images" EntityType="CBKFTModel.Images" />
+    <EntitySet Name="UsedImages" EntityType="CBKFTModel.UsedImages" />
+  </EntityContainer>
+  <EntityType Name="Images">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="imgName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="imgByte" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="imgPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="UsedImages">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="imgId" Type="Int32" Nullable="false" />
+    <Property Name="imgOrder" Type="Int32" Nullable="false" />
+  </EntityType>
+</Schema>

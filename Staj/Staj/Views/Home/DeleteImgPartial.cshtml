@@ -1,0 +1,26 @@
+﻿@model Staj.Models.ImageViewModel
+
+<div>
+    <h2>Are you sure?</h2>
+</div>
+
+<script>
+    var id = @ViewBag.id;
+    $(function () {
+        debugger
+        $("#hede9").click(function () {
+
+            var hede9 = id;
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/DeleteImage?id=" + hede9,
+                success: function (response) {
+                    $("#myModal4" ).modal("hide");
+                    window.location.href = "/Home/Image";
+                }
+            })
+        })
+    })
+</script>

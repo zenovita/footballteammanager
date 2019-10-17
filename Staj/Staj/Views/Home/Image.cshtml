@@ -1,0 +1,263 @@
+﻿@model Staj.Models.PreviewImageViewModel
+@{
+    ViewBag.Title = "Index";
+    // Layout = null;
+}
+
+
+@if (Session["UserType"] != null && (Session["UserType"].Equals("Admin")))
+{
+    <div>
+        <div class="aligncenter">
+            <div>
+
+                <div class="btn btn-primary aligncenter">
+                    <input type="file" id="imageBrowes" />
+                </div>
+
+                <div id="imgPreview" class="thumbnail" style="display:none">
+                    <img class="img-responsive" id="targetImg" />
+                    <div class="caption">
+                        <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                        <span id="description"></span>
+                    </div>
+                    <a href="#" class="btn btn-default" onclick="Uploadimage()">Upload</a>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="">
+            <div class="container body-content">
+                <table id="imageTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Image Name</th>
+                            <th>Image ID</th>
+                            <th>Edit Image</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="modal fade" id="myModal1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Select Home 1</h3>
+                        </div>
+                        <div class="modal-body" id="myModalBodyDiv1">
+
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                            <input type="reset" value="Submit" class="btn btn-success" id="hede1" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModal2">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Select Home 2</h3>
+                        </div>
+                        <div class="modal-body" id="myModalBodyDiv2">
+
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                            <input type="reset" value="Submit" class="btn btn-success" id="hede2" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModal3">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Select Home 3</h3>
+                        </div>
+                        <div class="modal-body" id="myModalBodyDiv3">
+
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                            <input type="reset" value="Submit" class="btn btn-success" id="hede3" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModal4">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Delete Image</h3>
+                        </div>
+                        <div class="modal-body" id="myModalBodyDiv4">
+
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                            <input type="reset" value="Delete" class="btn btn-danger" id="hede9" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+}
+else
+{
+    <br />
+    <br />
+    <legend class="aligncenter">You have to be logged in to access this page!</legend>
+    using (Html.BeginForm("Login", "User", FormMethod.Post))
+    {
+        <form class="container" action='' method="POST">
+            <div class="col-lg-12 aligncenter">
+                <button class="btn btn-primary btn-lg" style="">Login</button>
+            </div>
+        </form>
+    }
+}
+
+<script>
+
+    $(document).ready(function () {
+        $("#imageBrowes").change(function () {
+
+            var File = this.files;
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+        })
+        GetImages();
+    })
+
+    var GetImages = function () {
+        $.ajax({
+            type: "Get",
+            url: "/Home/ShowImages",
+            success: function (response) {
+                BindDataTable(response);
+            },
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+            }
+        })
+    }
+    var BindDataTable = function (response) {
+        debugger
+        $("#imageTable").DataTable({
+            "data": response,
+            "columns": [
+                {
+                    "data": "id",
+                    "render": function (data) {
+                        return '<img src="/Home/ImageRetrieve?id=' + data + '" class="img-responsive thumbnail"/>';
+                    }
+                },
+                { "data": "imgName" },
+                { "data": "id" },
+                {
+                    "data": "id",
+                    "render": function (id) {
+                        return '<a href="#" onclick="SetFirstCarousel(' + id + ')" > <i class="glyphicon glyphicon-pencil"></i></a ><a href="#" onclick="SetSecondCarousel(' + id + ')" > <i class="glyphicon glyphicon-pencil"></i></a ><a href="#" onclick="SetThirdCarousel(' + id + ')" > <i class="glyphicon glyphicon-pencil"></i></a ><a href="#" onclick="DeleteImage(' + id + ')" > <i class="glyphicon glyphicon-trash"></i></a >'
+                    }
+                },
+            ]
+        });
+    }
+
+    var SetFirstCarousel = function (id) {
+        debugger
+        var url = "/Home/SetImgPrompt?img=1&id=" + id;
+        $("#myModalBodyDiv1").load(url, function () {
+            $("#myModal1").modal("show");
+        })
+    }
+
+    var SetSecondCarousel = function (id) {
+        debugger
+        var url = "/Home/SetImgPrompt?img=2&id=" + id;
+        $("#myModalBodyDiv2").load(url, function () {
+            $("#myModal2").modal("show");
+        })
+    }
+
+    var SetThirdCarousel = function (id) {
+        debugger
+        var url = "/Home/SetImgPrompt?img=3&id=" + id;
+        $("#myModalBodyDiv3").load(url, function () {
+            $("#myModal3").modal("show");
+        })
+    }
+
+    var DeleteImage = function (id) {
+        debugger
+        var url = "/Home/DeleteImagePrompt?id=" + id;
+        $("#myModalBodyDiv4").load(url, function () {
+            $("#myModal4").modal("show");
+        })
+    }
+
+    var ReadImage = function (file) {
+
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+
+            image.src = _file.target.result;
+            image.onload = function () {
+
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+
+                $("#targetImg").attr('src', _file.target.result);
+                $("#description").text("Size:" + size + ", " + height + "X" + width + ", " + type + "");
+                $("#imgPreview").show();
+            }
+        }
+    }
+
+    var ClearPreview = function () {
+        $("#imageBrowes").val('');
+        $("#description").text('');
+        $("#imgPreview").hide();
+    }
+
+    var Uploadimage = function () {
+        var file = $("#imageBrowes").get(0).files;
+
+        var data = new FormData;
+        data.append("ImageFile", file[0]);
+
+        $.ajax({
+            type: "Post",
+            url: "/Home/ImageUpload",
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (imgID) {
+                ClearPreview();
+                location.reload();
+                //alert("Image Added!");
+                //$("#uploadedImage").append('<img src="/Home/ImageRetrieve?id=' + imgID + '" class="img-responsive thumbnail"/>');
+            }
+        })
+    }
+
+</script>

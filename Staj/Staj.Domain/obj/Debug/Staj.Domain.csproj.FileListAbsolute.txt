@@ -1,0 +1,6 @@
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Domain\bin\Debug\Staj.Domain.dll
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Domain\bin\Debug\Staj.Domain.pdb
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Domain\obj\Debug\Staj.Domain.csproj.CoreCompileInputs.cache
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Domain\obj\Debug\Staj.Domain.dll
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Domain\obj\Debug\Staj.Domain.pdb
+C:\Users\MONSTER\Desktop\CBKSoft Internship\Staj\Staj\Staj.Domain\obj\Debug\Staj.Domain.csprojAssemblyReference.cache

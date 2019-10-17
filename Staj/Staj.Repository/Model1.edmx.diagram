@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f8b0fa3820014074925be1821bd5459f" Name="Diagram1">
+        <EntityTypeShape EntityType="CBKFTModel.Fixture" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBKFTModel.Players" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBKFTModel.PlayerSkills" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBKFTModel.Teams" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBKFTModel.Users" Width="1.5" PointX="8" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBKFTModel.UserTypes" Width="1.5" PointX="5.75" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="CBKFTModel.FK_Fixture_Teams" ManuallyRouted="false" />
+        <AssociationConnector Association="CBKFTModel.FK_Players_PlayerSkills" ManuallyRouted="false" />
+        <AssociationConnector Association="CBKFTModel.FK_Players_Teams" ManuallyRouted="false" />
+        <AssociationConnector Association="CBKFTModel.FK_Users_UserTypes" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CBKFTModel.Images" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="CBKFTModel.UsedImages" Width="1.5" PointX="7.375" PointY="5.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

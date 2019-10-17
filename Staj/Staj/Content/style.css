@@ -1,0 +1,28 @@
+﻿.aligncenter {
+    margin: 0 auto;
+    text-align: center;
+}
+
+    .aligncenter i {
+        text-align: center;
+    }
+
+    .aligncenter img, img.aligncenter {
+        margin-bottom: 20px;
+    }
+
+.btn-matchwidth {
+    max-width:280px;
+}
+
+.carousel-inner > .item > img {
+    width: 100%;
+    object-fit: cover;
+    height: 900px;
+}
+
+.fit-image {
+    width: 100%;
+    object-fit: cover;
+    height: 300px; /* only if you want fixed height */
+}

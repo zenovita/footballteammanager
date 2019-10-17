@@ -1,0 +1,198 @@
+﻿@model Staj.Models.TeamViewModel
+@{
+    ViewBag.Title = "Index";
+    if (Session["UserType"] != null)
+    {
+        ViewBag.UserType = Session["UserType"].ToString();
+    }
+    else
+    {
+        ViewBag.UserType = "Standard";
+    }
+
+}
+
+@if (Session["UserType"] != null && (Session["UserType"].Equals("Admin") || Session["UserType"].Equals("Standard")))
+{
+    <br />
+    <div class="container body-content">
+        <table id="teamTable" class="display">
+            <thead>
+                <tr>
+                    <th>Team ID</th>
+                    <th>Team Name</th>
+                    <th>Game Played</th>
+                    <th>Win</th>
+                    <th>Lose</th>
+                    <th>Draw</th>
+                    <th>Goal Against</th>
+                    <th>Goal Difference</th>
+                    <th>Point</th>
+                    @if (Session["UserType"].Equals("Admin"))
+                    {
+                        <th>Edit Team</th>
+                    }
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Edit Team</h3>
+                </div>
+                <div class="modal-body" id="myModalBodyDiv">
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    <input type="reset" value="Submit" class="btn btn-success" id="hede" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Delete Team</h3>
+                </div>
+                <div class="modal-body" id="myModalBodyDiv2">
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    <input type="reset" value="Delete" class="btn btn-danger" id="hede12" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal3">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Players</h3>
+                </div>
+                <div class="modal-body" id="myModalBodyDiv3">
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" onclick="CloseModal()" id="tableDestroy">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <br />
+    <br />
+    <legend class="aligncenter">You have to be logged in to access this page!</legend>
+    using (Html.BeginForm("Login", "User", FormMethod.Post))
+    {
+        <form class="container" action='' method="POST">
+            <div class="col-lg-12 aligncenter">
+                <button class="btn btn-primary btn-lg" style="">Login</button>
+            </div>
+        </form>
+    }
+}
+
+
+<script>
+
+
+
+    $(document).ready(function () {
+        GetTeams();
+    })
+    var GetTeams = function () {
+        $.ajax({
+            type: "Get",
+            url: "/Team/ShowTeam",
+            success: function (response) {
+                BindDataTable(response);
+            }
+        })
+    }
+    var BindDataTable = function (response) {
+        
+        var userType = '@ViewBag.UserType';
+        if ((userType) == "Admin") {
+            $("#teamTable").DataTable({
+                "data": response,
+                "columns": [
+                    { "data": "teamId" },
+                    { "data": "teamName" },
+                    { "data": "gamePlayed" },
+                    { "data": "win" },
+                    { "data": "lose" },
+                    { "data": "draw" },
+                    { "data": "goalAgainst" },
+                    { "data": "goalDifference" },
+                    { "data": "point" },
+                    {
+                        "data": "teamId",
+                        "render": function (teamId) {
+                            return '<a href="#" onclick="GetTeam(' + teamId + ')" > <i class="glyphicon glyphicon-pencil"></i></a ><a href="#" onclick="DeleteTeam(' + teamId + ')" > <i class="glyphicon glyphicon-trash"></i></a ><a href="#" onclick="GetPlayers(' + teamId + ')" > <i class="glyphicon glyphicon-th-list"></i></a >'
+
+                        }
+                    },
+                ]
+            });
+        }
+        else
+        {
+            $("#teamTable").DataTable({
+
+                "aaData": response,
+                "aoColumns": [
+                    { "mData": "teamId" },
+                    { "mData": "teamName" },
+                    { "mData": "gamePlayed" },
+                    { "mData": "win" },
+                    { "mData": "lose" },
+                    { "mData": "draw" },
+                    { "mData": "goalAgainst" },
+                    { "mData": "goalDifference" },
+                    { "mData": "point" },
+                ]
+            });
+        }
+    }
+
+    var GetTeam = function (teamId) {
+        
+        var url = "/Team/GetTeam?teamId=" + teamId;
+            $("#myModalBodyDiv").load(url, function () {
+                $("#myModal").modal("show");
+            })
+    }
+
+    var DeleteTeam = function (teamId) {
+        var url = "/Team/DeleteTeamPrompt?teamId=" + teamId;
+        $("#myModalBodyDiv2").load(url, function () {
+            $("#myModal2").modal("show");
+        })
+    }
+
+    var GetPlayers = function (teamId) {
+        debugger
+        var url = "/Team/ShowPlayers?teamId=" + teamId;
+        //$('#players').empty();
+        
+            $("#myModalBodyDiv3").load(url, function () {
+                $("#myModal3").modal("show");
+            })
+    }
+
+    var CloseModal = function () {
+         $("#myModal3").modal("hide");
+    }
+
+</script>
+

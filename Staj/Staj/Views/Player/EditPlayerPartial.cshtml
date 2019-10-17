@@ -1,0 +1,132 @@
+﻿@model Staj.Models.PlayerSkillRelationViewModel
+
+<fieldset>
+
+    <div class="form-group">
+        <!-- Player Name -->
+        <label class="control-label">Player Name</label><div class="controls">
+            @Html.TextBoxFor(m => m.PlayerVM.playerName, new { @class = "form-control aligncenter", @placeholder = "Player Name", @id = "playerName" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <!-- Team -->
+        <label class="control-label">Team Name</label><div class="controls">
+            @Html.DropDownListFor(m => m.PlayerVM.teamId, ViewBag.TeamList as SelectList, "Select Team", new { @class = "form-control aligncenter", @id = "teamId" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Position</label><div class="controls">
+            @Html.DropDownList("Position", new List<SelectListItem>{
+               new SelectListItem{ Text="GK", Value = "GK" },
+               new SelectListItem{ Text="DF", Value = "DF" },
+               new SelectListItem{ Text="SW", Value = "SW" },
+               new SelectListItem{ Text="RWB", Value = "RWB" },
+               new SelectListItem{ Text="LWB", Value = "LWB" },
+               new SelectListItem{ Text="RB", Value = "RB" },
+               new SelectListItem{ Text="CB", Value = "CB" },
+               new SelectListItem{ Text="MF", Value = "MF" },
+               new SelectListItem{ Text="DM", Value = "DM" },
+               new SelectListItem{ Text="RW", Value = "RW" },
+               new SelectListItem{ Text="CM", Value = "CM" },
+               new SelectListItem{ Text="AM", Value = "AM" },
+               new SelectListItem{ Text="FW", Value = "FW" },
+               new SelectListItem{ Text="CF", Value = "CF" },
+               new SelectListItem{ Text="RF", Value = "RF" },
+               new SelectListItem{ Text="LF", Value = "LF" },
+               new SelectListItem{ Text="ST", Value = "ST" }
+        }, new { @class = "form-control aligncenter", @id = "position" })
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group">
+        <!-- Attack -->
+        <label class="control-label" for="attack">Player Attack</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.SkillVM.atk, new { @class = "form-control aligncenter", @placeholder = "Player Attack", @id = "atk" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <!-- Defense -->
+        <label class="control-label" for="defense">Defense</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.SkillVM.def, new { @class = "form-control aligncenter", @placeholder = "Player Defense", @id = "def" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <!-- Speed -->
+        <label class="control-label" for="speed">Speed</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.SkillVM.spd, new { @class = "form-control aligncenter", @placeholder = "Player Speed", @id = "spd" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <!-- Pass -->
+        <label class="control-label" for="pass">Pass</label>
+
+        <div class="controls">
+            @Html.TextBoxFor(m => m.SkillVM.pass, new { @class = "form-control aligncenter", @placeholder = "Player Pass", @id = "pass" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Is the player in the first eight?  @Html.CheckBox("isPlaying", new { @id = "isPlaying" })</label>
+    </div>
+
+</fieldset>
+
+<script>
+
+    //$(document).ready(function () {
+    //    $("#teamTable").DataTable();
+    //});
+        var id = @ViewBag.playerId;
+    $(function () {
+        debugger
+        $("#hede").click(function () {
+            //var data = $("#myForm").serialize();
+            var hede1 = $("#playerName").val();
+            var hede2 = $("#teamId").val();
+            var hede3 = $("#position").val();
+            var hede4 = $("#atk").val();
+            var hede5 = $("#def").val();
+            var hede6 = $("#spd").val();
+            var hede7 = $("#pass").val();
+            var hede8 = 0;
+            var hede9 = id;
+            if ($("#isPlaying").val()) {
+                hede8 = 1;
+            } else {
+                hede8 = 0;
+            }
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Player/AddEditPlayer",
+                data: {
+                    "PlayerVM.playerId": hede9,
+                    "PlayerVM.playerName": hede1,
+                    "PlayerVM.teamId": hede2,
+                    "PlayerVM.position": hede3,
+                    "SkillVM.atk": hede4,
+                    "SkillVM.def": hede5,
+                    "SkillVM.spd": hede6,
+                    "SkillVM.pass": hede7,
+                    "PlayerVM.isPlaying": hede8
+                },
+                success: function (response) {
+                    $("#myModal").modal("hide");
+                    window.location.href = "/Player/ShowPlayers";
+                }
+            })
+        })
+    })
+</script>
